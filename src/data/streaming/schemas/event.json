@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Event Schema",
+  "description": "Schema for event data in the streaming pipeline",
+  "type": "object",
+  "required": [
+    "id",
+    "event_type",
+    "timestamp",
+    "source"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the event"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Type of event (e.g., CLICK, PURCHASE, ERROR)",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "ISO 8601 timestamp when the event occurred",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "description": "System or application that generated the event",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "user_id": {
+      "type": ["string", "null"],
+      "description": "ID of the user associated with the event (if applicable)"
+    },
+    "session_id": {
+      "type": ["string", "null"],
+      "description": "ID of the user session associated with the event"
+    },
+    "device": {
+      "type": ["object", "null"],
+      "description": "Information about the device that generated the event",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of device (e.g., mobile, desktop, tablet)"
+        },
+        "os": {
+          "type": "string",
+          "description": "Operating system of the device"
+        },
+        "browser": {
+          "type": "string",
+          "description": "Browser used (if applicable)"
+        }
+      }
+    },
+    "location": {
+      "type": ["object", "null"],
+      "description": "Geographic location information",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country code (ISO 3166-1 alpha-2)"
+        },
+        "region": {
+          "type": "string",
+          "description": "Region or state"
+        },
+        "city": {
+          "type": "string",
+          "description": "City name"
+        }
+      }
+    },
+    "properties": {
+      "type": ["object", "null"],
+      "description": "Additional event-specific properties",
+      "additionalProperties": true
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version for this event",
+      "default": "1.0"
+    }
+  },
+  "additionalProperties": false
+}
