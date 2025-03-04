@@ -20,21 +20,28 @@ This infrastructure includes:
 
 ```
 .
-├── environments/            # Infrastructure code for each environment
-│   ├── dev/                 # Development environment
-│   ├── staging/             # Staging environment
-│   └── prod/                # Production environment
-├── models/                  # dbt models for analytics engineering
-│   └── dbt/                 # dbt project files
-│       ├── analyses/        # Ad-hoc analytical queries
-│       ├── macros/          # Reusable SQL snippets
-│       ├── models/          # Core data transformation logic
-│       │   ├── staging/     # Models for source data
-│       │   └── marts/       # Business-defined data models
-│       └── seeds/           # Static reference data
-├── modules/                 # Reusable Terraform modules
-├── terragrunt/              # Terragrunt configuration
-└── docs/                    # Documentation
+├── src/                                # Source code directory
+│   ├── infrastructure/                 # Infrastructure as code
+│   │   ├── terraform/                  # Reusable Terraform modules
+│   │   ├── terragrunt/                 # Terragrunt configuration
+│   │   └── environments/               # Environment-specific configurations
+│   │       ├── dev/                    # Development environment
+│   │       ├── staging/                # Staging environment
+│   │       └── prod/                   # Production environment
+│   ├── data/                           # Data processing and analytics
+│   │   ├── dbt/                        # dbt project files
+│   │   │   ├── analyses/               # Ad-hoc analytical queries
+│   │   │   ├── macros/                 # Reusable SQL snippets
+│   │   │   ├── models/                 # Core data transformation logic
+│   │   │   │   ├── staging/            # Models for source data
+│   │   │   │   └── marts/              # Business-defined data models
+│   │   │   └── seeds/                  # Static reference data
+│   │   ├── processing/                 # Data processing scripts
+│   │   └── streaming/                  # Streaming data configurations
+│   └── docs/                           # Documentation
+│       ├── architecture/               # Architecture diagrams and docs
+│       ├── guides/                     # User and developer guides
+│       └── api/                        # API documentation
 ```
 
 ## Getting Started
@@ -50,7 +57,10 @@ This infrastructure includes:
 
 To deploy the infrastructure:
 
-1. Navigate to the environment directory you want to deploy
+1. Navigate to the environment directory you want to deploy:
+   ```
+   cd src/infrastructure/environments/<env>
+   ```
 2. Run `terragrunt run-all plan` to see the changes that will be applied
 3. Run `terragrunt run-all apply` to apply the changes
 
@@ -64,7 +74,10 @@ To deploy the dbt models:
    export REDSHIFT_USER=your_user
    export REDSHIFT_PASSWORD=your_password
    ```
-2. Navigate to the `models/dbt` directory
+2. Navigate to the dbt directory:
+   ```
+   cd src/data/dbt
+   ```
 3. Run `dbt deps` to install dependencies
 4. Run `dbt run` to build all models
 
