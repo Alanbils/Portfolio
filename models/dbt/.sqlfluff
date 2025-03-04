@@ -1,0 +1,33 @@
+[sqlfluff]
+dialect = redshift
+templater = dbt
+runaway_limit = 10
+max_line_length = 100
+
+[sqlfluff:indentation]
+indented_joins = True
+indented_using_on = True
+template_blocks_indent = True
+
+[sqlfluff:layout:type:comma]
+spacing_before = touch
+line_position = trailing
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.identifiers]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.types]
+capitalisation_policy = upper
+
+[sqlfluff:templater:dbt]
+project_dir = .
+profiles_dir = .

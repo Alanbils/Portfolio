@@ -1,0 +1,18 @@
+version: 2
+
+seeds:
+  - name: state_regions
+    description: "Reference data for state regions"
+    columns:
+      - name: state_code
+        description: "The two-letter code for the US state"
+        tests:
+          - unique
+          - not_null
+      - name: state_name
+        description: "The full name of the US state"
+      - name: region
+        description: "The region of the US where the state is located"
+        tests:
+          - accepted_values:
+              values: ['Northeast', 'South', 'Midwest', 'West']
