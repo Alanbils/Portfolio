@@ -1,0 +1,64 @@
+version: 2
+
+sources:
+  - name: raw
+    database: analytics
+    schema: raw
+    tables:
+      - name: orders
+        description: Raw orders data from the e-commerce system
+        columns:
+          - name: order_id
+            description: Primary key of the orders table
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: Foreign key to customers table
+            tests:
+              - not_null
+          - name: order_date
+            description: Date when the order was placed
+            tests:
+              - not_null
+          - name: amount
+            description: Order amount in USD
+            tests:
+              - not_null
+              - positive_values
+
+models:
+  - name: stg_orders
+    description: Cleaned and standardized orders data
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key to customers
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: amount
+        description: Order amount in USD
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+
+  - name: fct_orders
+    description: Order fact table with additional metrics
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: order_tier
+        description: Order value classification
+        tests:
+          - accepted_values:
+              values: ['high_value', 'medium_value', 'low_value']

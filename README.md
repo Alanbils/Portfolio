@@ -1,85 +1,100 @@
-# AWS Data Engineering Infrastructure
+# Modern Data Engineering Portfolio
 
-This repository contains Terraform and Terragrunt code to deploy a complete AWS data engineering infrastructure with dbt models for analytics engineering.
+This repository showcases a production-grade data engineering platform implementing modern data stack practices and cloud-native architectures on AWS.
 
-## Architecture
-
-This infrastructure includes:
-
-- **Networking**: VPC, subnets, security groups, and NAT gateways
-- **Data Lake**: S3 buckets with appropriate policies
-- **Data Catalog & ETL**: AWS Glue jobs and crawlers
-- **Data Warehouse**: Amazon Redshift cluster
-- **Big Data Processing**: EMR clusters
-- **Streaming**: Kinesis streams and analytics
-- **Security**: IAM roles and policies
-- **Monitoring**: CloudWatch dashboards and alarms
-- **Analytics Engineering**: dbt models for transforming raw data into analytics-ready datasets
-
-## Repository Structure
+## Architecture Overview
 
 ```
-.
-├── src/                                # Source code directory
-│   ├── infrastructure/                 # Infrastructure as code
-│   │   ├── terraform/                  # Reusable Terraform modules
-│   │   ├── terragrunt/                 # Terragrunt configuration
-│   │   └── environments/               # Environment-specific configurations
-│   │       ├── dev/                    # Development environment
-│   │       ├── staging/                # Staging environment
-│   │       └── prod/                   # Production environment
-│   ├── data/                           # Data processing and analytics
-│   │   ├── dbt/                        # dbt project files
-│   │   │   ├── analyses/               # Ad-hoc analytical queries
-│   │   │   ├── macros/                 # Reusable SQL snippets
-│   │   │   ├── models/                 # Core data transformation logic
-│   │   │   │   ├── staging/            # Models for source data
-│   │   │   │   └── marts/              # Business-defined data models
-│   │   │   └── seeds/                  # Static reference data
-│   │   ├── processing/                 # Data processing scripts
-│   │   └── streaming/                  # Streaming data configurations
-│   └── docs/                           # Documentation
-│       ├── architecture/               # Architecture diagrams and docs
-│       ├── guides/                     # User and developer guides
-│       └── api/                        # API documentation
+data-platform/
+├── infrastructure/           # Infrastructure as Code
+│   ├── terraform/           # Reusable modules
+│   └── terragrunt/         # Environment configurations
+├── data-pipelines/
+│   ├── dbt_analytics/      # Transformation layer
+│   ├── airflow_dags/       # Orchestration
+│   └── streaming/          # Real-time pipelines
+├── data-quality/           # Data quality frameworks
+│   ├── great_expectations/
+│   └── dbt_tests/
+├── notebooks/              # Analysis & Prototyping
+└── monitoring/            # Observability stack
 ```
+
+## Key Features
+
+### Data Processing
+- **Modern Data Stack**: dbt for transformations, Airflow for orchestration
+- **Data Lake**: S3-based with Glue catalog and Athena querying
+- **Data Warehouse**: Redshift optimization and best practices
+- **Streaming Pipeline**: Real-time processing with Kinesis
+- **ETL Framework**: AWS Glue, Lambda, and Step Functions
+
+### Infrastructure & DevOps
+- **IaC**: Terraform modules with Terragrunt for multi-environment management
+- **CI/CD**: Automated testing, documentation, and deployment
+- **Security**: IAM roles, encryption, and secure credential management
+- **Monitoring**: CloudWatch dashboards and alerts
+
+### Data Quality & Governance
+- **Testing**: dbt tests and Great Expectations
+- **Documentation**: Auto-generated data catalogs
+- **Observability**: Real-time quality monitoring
+
+## Technologies
+
+- **Cloud**: AWS (S3, Glue, Athena, Redshift, Kinesis, Lambda)
+- **Processing**: dbt, Apache Spark, Python
+- **Orchestration**: Airflow
+- **DevOps**: Terraform, GitHub Actions
+- **Quality**: Great Expectations, dbt Testing
 
 ## Getting Started
 
-### Prerequisites
+1. **Infrastructure Setup**
+```bash
+cd infrastructure/terragrunt/dev
+terragrunt run-all apply
+```
 
-- Terraform >= 0.14.0
-- Terragrunt >= 0.28.0
-- dbt >= 1.3.0
-- AWS CLI configured with appropriate credentials
+2. **Data Pipeline Development**
+```bash
+cd data-pipelines/dbt_analytics
+dbt deps
+dbt run
+```
 
-### Infrastructure Deployment
+3. **Quality Checks**
+```bash
+cd data-quality/great_expectations
+great_expectations checkpoint run
+```
 
-To deploy the infrastructure:
+## Project Structure
 
-1. Navigate to the environment directory you want to deploy:
-   ```
-   cd src/infrastructure/environments/<env>
-   ```
-2. Run `terragrunt run-all plan` to see the changes that will be applied
-3. Run `terragrunt run-all apply` to apply the changes
+### /infrastructure
+- Terraform modules for AWS resources
+- Environment-specific configurations
+- Network and security settings
 
-### Analytics Deployment
+### /data-pipelines
+- dbt models and transformations
+- Airflow DAG definitions
+- Streaming pipeline configurations
 
-To deploy the dbt models:
+### /data-quality
+- Data quality test suites
+- Validation frameworks
+- Quality monitoring
 
-1. Set environment variables for Redshift connection:
-   ```
-   export REDSHIFT_HOST=yourhost.region.redshift.amazonaws.com
-   export REDSHIFT_USER=your_user
-   export REDSHIFT_PASSWORD=your_password
-   ```
-2. Navigate to the dbt directory:
-   ```
-   cd src/data/dbt
-   ```
-3. Run `dbt deps` to install dependencies
-4. Run `dbt run` to build all models
+### /notebooks
+- Data analysis notebooks
+- Pipeline prototypes
+- Documentation examples
+
+### /monitoring
+- CloudWatch dashboards
+- Alert configurations
+- Logging setup
 
 ## Data Flow
 
@@ -91,15 +106,20 @@ To deploy the dbt models:
    - Core business entities (dimensions and facts)
    - Department-specific analytics models
 
+## Documentation
+
+Detailed documentation for each component is available in the `/docs` directory:
+- Architecture diagrams
+- Setup guides
+- Best practices
+- Troubleshooting guides
+
 ## Best Practices
 
 This repository follows these best practices:
-
 - **DRY code** using Terragrunt and modules
 - **State management** with remote state in S3
-- **Parameterization** for environment-specific values
-- **Versioning** of modules and configurations
 - **Security** with least privilege principles
-- **Testing** data quality with dbt tests
+- **Testing** data quality with dbt and Great Expectations
 - **CI/CD** for both infrastructure and analytics code
-- **Documentation** for both infrastructure and analytics code
+- **Documentation** as code
