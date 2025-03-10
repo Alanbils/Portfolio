@@ -1,0 +1,58 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "orders_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "notes": "Primary key should never be null"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_unique",
+      "kwargs": {
+        "column": "order_id"
+      },
+      "meta": {
+        "notes": "Order IDs must be unique"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "total_amount",
+        "min_value": 0,
+        "max_value": 1000000
+      },
+      "meta": {
+        "notes": "Order amounts should be positive and within reasonable limits"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "status",
+        "value_set": ["pending", "processing", "completed", "cancelled", "failed"]
+      },
+      "meta": {
+        "notes": "Order status must be one of the allowed values"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_match_strftime_format",
+      "kwargs": {
+        "column": "created_at",
+        "strftime_format": "%Y-%m-%d %H:%M:%S"
+      },
+      "meta": {
+        "notes": "Datetime format validation"
+      }
+    }
+  ],
+  "meta": {
+    "great_expectations_version": "0.15.50"
+  }
+}

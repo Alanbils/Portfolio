@@ -1,0 +1,39 @@
+{
+    "widgets": [
+        {
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    ["DataQuality", "FailedTests", "Pipeline", "Production"],
+                    ["DataQuality", "StaleData", "Pipeline", "Production"]
+                ],
+                "period": 3600,
+                "stat": "Sum",
+                "region": "us-east-1",
+                "title": "Data Quality Issues"
+            }
+        },
+        {
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    ["Pipeline", "ProcessingTime", "Stage", "dbt"],
+                    ["Pipeline", "ProcessingTime", "Stage", "quality_checks"]
+                ],
+                "period": 300,
+                "stat": "Average",
+                "region": "us-east-1",
+                "title": "Pipeline Performance"
+            }
+        },
+        {
+            "type": "log",
+            "properties": {
+                "query": "fields @timestamp, @message | filter @message like /ERROR/",
+                "region": "us-east-1",
+                "title": "Pipeline Errors",
+                "view": "table"
+            }
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: analytics
+    schema: raw
+    tables:
+      - name: orders
+        columns:
+          - name: order_id
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            tests:
+              - not_null
+          - name: order_date
+            tests:
+              - not_null
+      
+      - name: customers
+        columns:
+          - name: customer_id
+            tests:
+              - unique
+              - not_null
+          - name: email
+            tests:
+              - not_null

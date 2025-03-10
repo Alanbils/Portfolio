@@ -1,0 +1,21 @@
+analytics:
+  target: dev
+  outputs:
+    dev:
+      type: redshift
+      host: "{{ env_var('DBT_HOST') }}"
+      port: 5439
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      dbname: analytics
+      schema: dbt_dev
+      threads: 4
+    prod:
+      type: redshift
+      host: "{{ env_var('DBT_HOST') }}"
+      port: 5439
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      dbname: analytics
+      schema: dbt_prod
+      threads: 8

@@ -2,7 +2,7 @@
 
 This repository showcases a production-grade data engineering platform implementing modern data stack practices and cloud-native architectures on AWS.
 
-## Architecture Overview
+## 🏗️ Architecture Overview
 
 ```
 data-platform/
@@ -20,7 +20,7 @@ data-platform/
 └── monitoring/            # Observability stack
 ```
 
-## Key Features
+## 🚀 Key Features
 
 ### Data Processing
 - **Modern Data Stack**: dbt for transformations, Airflow for orchestration
@@ -40,7 +40,7 @@ data-platform/
 - **Documentation**: Auto-generated data catalogs
 - **Observability**: Real-time quality monitoring
 
-## Technologies
+## 🛠️ Technologies
 
 - **Cloud**: AWS (S3, Glue, Athena, Redshift, Kinesis, Lambda)
 - **Processing**: dbt, Apache Spark, Python
@@ -48,7 +48,7 @@ data-platform/
 - **DevOps**: Terraform, GitHub Actions
 - **Quality**: Great Expectations, dbt Testing
 
-## Getting Started
+## 📚 Getting Started
 
 1. **Infrastructure Setup**
 ```bash
@@ -69,7 +69,7 @@ cd data-quality/great_expectations
 great_expectations checkpoint run
 ```
 
-## Project Structure
+## 📊 Project Structure
 
 ### /infrastructure
 - Terraform modules for AWS resources
@@ -96,7 +96,7 @@ great_expectations checkpoint run
 - Alert configurations
 - Logging setup
 
-## Data Flow
+## 🔄 Data Flow
 
 1. Raw data lands in S3 data lake from various sources
 2. AWS Glue catalogs the data and makes it available to query engines
@@ -106,7 +106,7 @@ great_expectations checkpoint run
    - Core business entities (dimensions and facts)
    - Department-specific analytics models
 
-## Documentation
+## 📖 Documentation
 
 Detailed documentation for each component is available in the `/docs` directory:
 - Architecture diagrams
@@ -114,7 +114,7 @@ Detailed documentation for each component is available in the `/docs` directory:
 - Best practices
 - Troubleshooting guides
 
-## Best Practices
+## ✨ Best Practices
 
 This repository follows these best practices:
 - **DRY code** using Terragrunt and modules

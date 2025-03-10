@@ -1,0 +1,26 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: check-json
+
+- repo: https://github.com/sqlfluff/sqlfluff
+  rev: 2.1.1
+  hooks:
+    - id: sqlfluff-lint
+      files: ^pipelines/dbt_analytics/.*\.sql$
+    - id: sqlfluff-fix
+      files: ^pipelines/dbt_analytics/.*\.sql$
+
+- repo: local
+  hooks:
+    - id: dbt-compile
+      name: dbt compile
+      entry: dbt compile --target dev
+      language: system
+      pass_filenames: false
+      require_serial: true
+      files: ^pipelines/dbt_analytics/.*\.(sql|yml|yaml)$
